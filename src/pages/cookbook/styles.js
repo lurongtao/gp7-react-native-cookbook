@@ -32,11 +32,6 @@ export default StyleSheet.create({
     width: '25%'
   },
 
-  hotCateLastItem: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
   hotCateImgWrap: {
     height: 90,
     alignItems: 'center',
@@ -44,19 +39,55 @@ export default StyleSheet.create({
   },
 
   hotCateImg: {
-    width: '90%',
-    height: '90%',
+    width: '80%',
+    height: '80%',
     borderRadius: 10,
+  },
+
+  hotCateLastItem: {
+    width: '25%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   hotCateTextWrap: {
     padding: 6,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: '100%'
   },
 
   hotCateText: {
     fontSize: 12
+  },
+
+  better: {
+    flexDirection: 'row',
+    paddingLeft: 10,
+    width: '100%',
+    flexWrap: 'wrap'
+  },
+
+  betterWrapper: {
+    paddingRight: 10,
+    width: '50%',
+    paddingBottom: 15
+  },
+
+  betterImgWrapper: {
+    height: 170
+  },
+
+  betterTitle: {
+    paddingTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  betterHot: {
+    paddingTop: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 
 })

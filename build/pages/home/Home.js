@@ -1,4 +1,11 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 import TabNavigator from 'react-native-tab-navigator';
 import { View, Text, Image } from 'react-native';
 import CookBook from '../cookbook/CookBook';
@@ -11,7 +18,7 @@ const location = require('../../../assets/images/location.png');
 const locationActive = require('../../../assets/images/location-active.png');
 const more = require('../../../assets/images/more.png');
 const moreActive = require('../../../assets/images/more-active.png');
-export default class Home extends React.Component {
+let Home = class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,5 +39,10 @@ export default class Home extends React.Component {
                 React.createElement(View, null,
                     React.createElement(Text, null, "profile")))));
     }
-}
+};
+Home = __decorate([
+    inject('store'),
+    observer
+], Home);
+export default Home;
 //# sourceMappingURL=Home.js.map

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { observer, inject } from 'mobx-react'
+
 import TabNavigator from 'react-native-tab-navigator'
 
 import {
@@ -11,6 +13,7 @@ import {
 import CookBook from '../cookbook/CookBook'
 
 import styles from './styles'
+import { observable } from 'mobx';
 
 const cookBook = require('../../../assets/images/cookbook.png')
 const cookBookActive = require('../../../assets/images/cookbook-active.png')
@@ -22,13 +25,15 @@ const more = require('../../../assets/images/more.png')
 const moreActive = require('../../../assets/images/more-active.png')
 
 interface Props {
-  name: string
+  store?: any
 }
 
 interface State {
   selectedTab: string
 }
 
+@inject('store')
+@observer
 export default class Home extends React.Component<Props, State> {
   constructor (props: any) {
     super(props)
