@@ -1,4 +1,5 @@
 import list from './list';
-const store = { list };
+import home from './home';
+const store = { list, home };
 export default store;
 //# sourceMappingURL=index.js.map

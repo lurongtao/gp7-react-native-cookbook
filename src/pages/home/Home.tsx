@@ -7,11 +7,14 @@ import TabNavigator from 'react-native-tab-navigator'
 import {
   View,
   Text,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native'
 
 import CookBook from '../cookbook/CookBook'
 import List from '../../components/list/List'
+import Map from '../map/Map'
+import Profile from '../profile/Profile'
 
 import styles from './styles'
 import { observable } from 'mobx';
@@ -50,6 +53,7 @@ export default class Home extends React.Component<Props, State> {
 
   constructor (props: any) {
     super(props)
+    
     this.state = {
       selectedTab: 'home'
     }
@@ -78,16 +82,22 @@ export default class Home extends React.Component<Props, State> {
           onPress={() => this.setState({ selectedTab: 'category' })}>
           <List start={0} count={20}></List>
         </TabNavigator.Item>
-        <TabNavigator.Item
-          selected={this.state.selectedTab === 'map'}
-          title="地图"
-          titleStyle={styles.titleStyle}
-          selectedTitleStyle={styles.selectedTitleStyle}
-          renderIcon={() => <Image style={styles.imgSize} source={location} />}
-          renderSelectedIcon={() => <Image style={styles.imgSize} source={locationActive} />}
-          onPress={() => this.setState({ selectedTab: 'map' })}>
-          <View><Text>map</Text></View>
-        </TabNavigator.Item>
+        {
+          this.props.store.home.isShowMap
+            ? (
+              <TabNavigator.Item
+              selected={this.state.selectedTab === 'map'}
+              title="地图"
+              titleStyle={styles.titleStyle}
+              selectedTitleStyle={styles.selectedTitleStyle}
+              renderIcon={() => <Image style={styles.imgSize} source={location} />}
+              renderSelectedIcon={() => <Image style={styles.imgSize} source={locationActive} />}
+              onPress={() => this.setState({ selectedTab: 'map' })}>
+              <Map></Map>
+            </TabNavigator.Item>
+            )
+            : null
+        }
         <TabNavigator.Item
           titleStyle={styles.titleStyle}
           selectedTitleStyle={styles.selectedTitleStyle}
@@ -96,9 +106,14 @@ export default class Home extends React.Component<Props, State> {
           renderIcon={() => <Image style={styles.imgSize} source={more} />}
           renderSelectedIcon={() => <Image style={styles.imgSize} source={moreActive} />}
           onPress={() => this.setState({ selectedTab: 'profile' })}>
-          <View><Text>profile</Text></View>
+          <Profile></Profile>
         </TabNavigator.Item>
       </TabNavigator>
     )
+  }
+
+  async componentDidMount () {
+    let value = await AsyncStorage.getItem('isShowMap') === 'true' ? true : false
+    this.props.store.home.switchTab(value)
   }
 }

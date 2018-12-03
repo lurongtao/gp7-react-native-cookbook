@@ -6,26 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, FlatList, Image } from 'react-native';
 import styles from './styles';
 let List = class List extends React.Component {
     render() {
         const listData = this.props.store.list.listData;
-        return (React.createElement(ScrollView, null,
-            React.createElement(View, { style: styles.better }, listData.slice(this.props.start, this.props.count)
-                .map((v, i) => {
-                return (React.createElement(View, { key: i, style: styles.betterWrapper },
-                    React.createElement(View, { style: styles.betterImgWrapper },
-                        React.createElement(Image, { resizeMode: 'cover', style: { height: '100%' }, source: { uri: v.img } })),
-                    React.createElement(View, { style: styles.betterTitle },
-                        React.createElement(Text, { style: { fontSize: 18 } }, v.name)),
-                    React.createElement(View, { style: styles.betterHot },
-                        React.createElement(Text, { style: { color: '#777777' } },
-                            v.all_click,
-                            "\u6D4F\u89C8 ",
-                            v.favorites,
-                            "\u6536\u85CF"))));
-            }))));
+        const data = listData.slice(this.props.start, this.props.count);
+        return (React.createElement(View, { style: styles.better }, data.length > 0 ? (React.createElement(FlatList, { data: data, style: styles.betterWrapper, renderItem: ({ item, index }) => (React.createElement(View, null,
+                React.createElement(View, { style: styles.betterImgWrapper },
+                    React.createElement(Image, { resizeMode: 'cover', style: { height: '100%' }, source: { uri: item.img } })),
+                React.createElement(View, { style: styles.betterTitle },
+                    React.createElement(Text, { style: { fontSize: 18 } }, item.name)),
+                React.createElement(View, { style: styles.betterHot },
+                    React.createElement(Text, { style: { color: '#777777' } },
+                        item.all_click,
+                        "\u6D4F\u89C8 ",
+                        item.favorites,
+                        "\u6536\u85CF")))) })) : null));
     }
 };
 List = __decorate([
