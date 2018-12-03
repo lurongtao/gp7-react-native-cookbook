@@ -9,6 +9,7 @@ import { observer, inject } from 'mobx-react';
 import TabNavigator from 'react-native-tab-navigator';
 import { View, Text, Image } from 'react-native';
 import CookBook from '../cookbook/CookBook';
+import List from '../../components/list/List';
 import styles from './styles';
 const cookBook = require('../../../assets/images/cookbook.png');
 const cookBookActive = require('../../../assets/images/cookbook-active.png');
@@ -28,10 +29,9 @@ let Home = class Home extends React.Component {
     render() {
         return (React.createElement(TabNavigator, null,
             React.createElement(TabNavigator.Item, { selected: this.state.selectedTab === 'home', title: "\u5927\u5168", titleStyle: styles.titleStyle, selectedTitleStyle: styles.selectedTitleStyle, renderIcon: () => React.createElement(Image, { style: styles.imgSize, source: cookBook }), renderSelectedIcon: () => React.createElement(Image, { style: styles.imgSize, source: cookBookActive }), onPress: () => this.setState({ selectedTab: 'home' }) },
-                React.createElement(CookBook, null)),
-            React.createElement(TabNavigator.Item, { selected: this.state.selectedTab === 'category', title: "\u5206\u7C7B", titleStyle: styles.titleStyle, selectedTitleStyle: styles.selectedTitleStyle, renderIcon: () => React.createElement(Image, { style: styles.imgSize, source: menu }), renderSelectedIcon: () => React.createElement(Image, { style: styles.imgSize, source: menuActive }), onPress: () => this.setState({ selectedTab: 'category' }) },
-                React.createElement(View, null,
-                    React.createElement(Text, null, "category"))),
+                React.createElement(CookBook, { navigation: this.props.navigation })),
+            React.createElement(TabNavigator.Item, { selected: this.state.selectedTab === 'category', title: "\u70ED\u5356", titleStyle: styles.titleStyle, selectedTitleStyle: styles.selectedTitleStyle, renderIcon: () => React.createElement(Image, { style: styles.imgSize, source: menu }), renderSelectedIcon: () => React.createElement(Image, { style: styles.imgSize, source: menuActive }), onPress: () => this.setState({ selectedTab: 'category' }) },
+                React.createElement(List, { start: 0, count: 20 })),
             React.createElement(TabNavigator.Item, { selected: this.state.selectedTab === 'map', title: "\u5730\u56FE", titleStyle: styles.titleStyle, selectedTitleStyle: styles.selectedTitleStyle, renderIcon: () => React.createElement(Image, { style: styles.imgSize, source: location }), renderSelectedIcon: () => React.createElement(Image, { style: styles.imgSize, source: locationActive }), onPress: () => this.setState({ selectedTab: 'map' }) },
                 React.createElement(View, null,
                     React.createElement(Text, null, "map"))),
@@ -39,6 +39,16 @@ let Home = class Home extends React.Component {
                 React.createElement(View, null,
                     React.createElement(Text, null, "profile")))));
     }
+};
+Home.navigationOptions = {
+    title: '美食大全',
+    headerStyle: {
+        backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: '100',
+    },
 };
 Home = __decorate([
     inject('store'),

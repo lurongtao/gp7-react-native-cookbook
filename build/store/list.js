@@ -9,7 +9,7 @@ class List {
     constructor() {
         this.listData = [];
     }
-    getCateData() {
+    getListData() {
         fetch('https://ik9hkddr.qcloud.la/mock/cookbook-list.json')
             .then(reponse => reponse.json())
             .then(result => {
@@ -24,6 +24,6 @@ __decorate([
 ], List.prototype, "listData", void 0);
 __decorate([
     action
-], List.prototype, "getCateData", null);
+], List.prototype, "getListData", null);
 export default new List();
 //# sourceMappingURL=list.js.map

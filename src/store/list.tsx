@@ -4,7 +4,7 @@ class List {
   @observable listData: Array<any> = []
 
   @action
-  getCateData () {
+  getListData () {
     fetch('https://ik9hkddr.qcloud.la/mock/cookbook-list.json')
       .then(reponse => reponse.json())
       .then(result => {

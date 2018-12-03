@@ -6,7 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
+import List from '../../components/list/List';
 import styles from './styles.js';
 import Swiper from 'react-native-swiper';
 let componentName = class componentName extends Component {
@@ -30,28 +31,16 @@ let componentName = class componentName extends Component {
             React.createElement(View, { style: styles.hotCateContainer },
                 this.state.hotCateList.slice(0, 11).map((v, i) => {
                     return (React.createElement(View, { key: i, style: styles.hotCateItem },
-                        React.createElement(View, { style: styles.hotCateImgWrap },
-                            React.createElement(Image, { source: { uri: v.img }, style: styles.hotCateImg })),
-                        React.createElement(View, { style: styles.hotCateTextWrap },
-                            React.createElement(Text, { style: styles.hotCateText }, v.title))));
+                        React.createElement(TouchableOpacity, { onPress: this._onPressHotCate.bind(this, i) },
+                            React.createElement(View, { style: styles.hotCateImgWrap },
+                                React.createElement(Image, { source: { uri: v.img }, style: styles.hotCateImg })),
+                            React.createElement(View, { style: styles.hotCateTextWrap },
+                                React.createElement(Text, { style: styles.hotCateText }, v.title)))));
                 }),
                 React.createElement(View, { style: styles.hotCateLastItem },
                     React.createElement(View, { style: styles.hotCateTextWrap },
                         React.createElement(Text, { style: styles.hotCateText }, "\u66F4\u591A...")))),
-            React.createElement(View, { style: styles.better }, listData.slice(0, 10)
-                .map((v, i) => {
-                return (React.createElement(View, { key: i, style: styles.betterWrapper },
-                    React.createElement(View, { style: styles.betterImgWrapper },
-                        React.createElement(Image, { resizeMode: 'cover', style: { height: '100%' }, source: { uri: v.img } })),
-                    React.createElement(View, { style: styles.betterTitle },
-                        React.createElement(Text, { style: { fontSize: 18 } }, v.name)),
-                    React.createElement(View, { style: styles.betterHot },
-                        React.createElement(Text, { style: { color: '#777777' } },
-                            v.all_click,
-                            "\u6D4F\u89C8 ",
-                            v.favorites,
-                            "\u6536\u85CF"))));
-            }))));
+            React.createElement(List, { start: 0, count: 10 })));
     }
     componentDidMount() {
         fetch('https://ik9hkddr.qcloud.la/mock/cookbook-category.json')
@@ -68,6 +57,11 @@ let componentName = class componentName extends Component {
         //       list: result.data
         //     })
         //   })
+    }
+    _onPressHotCate(id) {
+        this.props.navigation.navigate('HotList', {
+            id
+        });
     }
 };
 componentName = __decorate([

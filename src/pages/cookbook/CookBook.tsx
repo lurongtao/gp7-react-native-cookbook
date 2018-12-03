@@ -6,8 +6,11 @@ import {
   View,
   Text,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native'
+
+import List from '../../components/list/List'
 
 import styles from './styles.js'
 
@@ -16,7 +19,8 @@ import Swiper from 'react-native-swiper'
 import _ from 'lodash'
 
 interface Props {
-  store?: any
+  store?: any,
+  navigation?: any
 }
 
 interface State {
@@ -65,12 +69,14 @@ export default class componentName extends Component<Props, State> {
           this.state.hotCateList.slice(0, 11).map((v, i) => {
             return (
               <View key={i} style={styles.hotCateItem}>
-                <View style={styles.hotCateImgWrap}>
-                  <Image source={{uri: v.img}} style={styles.hotCateImg}></Image>
-                </View>
-                <View style={styles.hotCateTextWrap}>
-                  <Text style={styles.hotCateText}>{v.title}</Text>
-                </View>
+                <TouchableOpacity onPress={this._onPressHotCate.bind(this, i)}>
+                  <View style={styles.hotCateImgWrap}>
+                    <Image source={{uri: v.img}} style={styles.hotCateImg}></Image>
+                  </View>
+                  <View style={styles.hotCateTextWrap}>
+                    <Text style={styles.hotCateText}>{v.title}</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             )
           })
@@ -81,22 +87,7 @@ export default class componentName extends Component<Props, State> {
             </View>
           </View>
         </View>
-        <View style={styles.better}>
-          {
-            listData.slice(0, 10)
-              .map((v: any, i: any) => {
-                return (
-                  <View key={i} style={styles.betterWrapper}>
-                    <View style={styles.betterImgWrapper}>
-                      <Image resizeMode={'cover'} style={{height: '100%'}} source={{uri: v.img}}></Image>
-                    </View>
-                    <View style={styles.betterTitle}><Text style={{fontSize: 18}}>{v.name}</Text></View>
-                    <View style={styles.betterHot}><Text style={{color: '#777777'}}>{v.all_click}浏览 {v.favorites}收藏</Text></View>
-                  </View>
-                )
-              })
-          }
-        </View>
+        <List start={0} count={10}></List>
       </ScrollView>
     )
   }
@@ -117,5 +108,11 @@ export default class componentName extends Component<Props, State> {
     //       list: result.data
     //     })
     //   })
+  }
+
+  _onPressHotCate (id: number) {
+    this.props.navigation.navigate('HotList', {
+      id
+    })
   }
 }

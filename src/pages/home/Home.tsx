@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 
 import CookBook from '../cookbook/CookBook'
+import List from '../../components/list/List'
 
 import styles from './styles'
 import { observable } from 'mobx';
@@ -25,7 +26,8 @@ const more = require('../../../assets/images/more.png')
 const moreActive = require('../../../assets/images/more-active.png')
 
 interface Props {
-  store?: any
+  store?: any,
+  navigation?: any
 }
 
 interface State {
@@ -35,12 +37,24 @@ interface State {
 @inject('store')
 @observer
 export default class Home extends React.Component<Props, State> {
+  static navigationOptions = {
+    title: '美食大全',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: '100',
+    },
+  }
+
   constructor (props: any) {
     super(props)
     this.state = {
       selectedTab: 'home'
     }
   }
+
   render () {
     return (
       <TabNavigator>
@@ -52,17 +66,17 @@ export default class Home extends React.Component<Props, State> {
           renderIcon={() => <Image style={styles.imgSize} source={cookBook} />}
           renderSelectedIcon={() => <Image style={styles.imgSize} source={cookBookActive} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
-          <CookBook></CookBook>
+          <CookBook navigation={this.props.navigation}></CookBook>
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'category'}
-          title="分类"
+          title="热卖"
           titleStyle={styles.titleStyle}
           selectedTitleStyle={styles.selectedTitleStyle}
           renderIcon={() => <Image style={styles.imgSize} source={menu} />}
           renderSelectedIcon={() => <Image style={styles.imgSize} source={menuActive} />}
           onPress={() => this.setState({ selectedTab: 'category' })}>
-          <View><Text>category</Text></View>
+          <List start={0} count={20}></List>
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'map'}
